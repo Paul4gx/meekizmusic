@@ -28,7 +28,6 @@ class PageController extends Controller
         $adminSettings = AdminSetting::first();
         return view('home.index', compact('featuredBeats', 'adminSettings','genres'));
     }
-
     public function about()
     {
         return view('pages.about');
