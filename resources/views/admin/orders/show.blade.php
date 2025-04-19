@@ -35,7 +35,7 @@
                             </tr>
                             <tr>
                                 <th>Amount:</th>
-                                <td>${{ number_format($order->amount, 2) }}</td>
+                                <td>{{currency_symbol()}}{{ number_format($order->amount, 2) }}</td>
                             </tr>
                         </table>
                     </div>

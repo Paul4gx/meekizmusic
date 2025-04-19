@@ -61,7 +61,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="price" class="form-label">Price ($)</label>
+                                        <label for="price" class="form-label">Price ({{currency_symbol()}})</label>
                                         <input type="number" class="form-control @error('price') is-invalid @enderror" 
                                                id="price" name="price" value="{{ old('price') }}" step="0.01" required>
                                         @error('price')

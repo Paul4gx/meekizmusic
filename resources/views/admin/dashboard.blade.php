@@ -73,8 +73,8 @@
                 </span>
                                     <div class="dz-info bg-gray">
                     <h6 class="dz-subtitle"><a>Total Revenue</a></h6>
-                    <h5 class="dz-title"><a>${{ number_format($totalRevenue, 2) }}</a></h5>
-                    <span>${{ number_format($revenueThisMonth, 2) }} this month</span>
+                    <h5 class="dz-title"><a>{{currency_symbol()}}{{ number_format($totalRevenue, 2) }}</a></h5>
+                    <span>{{currency_symbol()}}{{ number_format($revenueThisMonth, 2) }} this month</span>
                 </div>
             </div>
         </div>
@@ -111,7 +111,7 @@
 								</div>
 								<div class="col-lg-2">
                                     <span class="small-title">Amount Sold:</span>
-									<h5 class="dz-title"><a>${{ number_format($order->amount, 2) }}</a></h5>
+									<h5 class="dz-title"><a>{{currency_symbol()}}{{ number_format($order->amount, 2) }}</a></h5>
 								</div>
 								<div class="col-lg-1">
                                     <span class="small-title">Status:</span>

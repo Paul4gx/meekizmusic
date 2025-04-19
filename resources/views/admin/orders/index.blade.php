@@ -36,7 +36,7 @@
                                     {{ $order->beat->title }}
                                 </div>
                             </td>
-                            <td>${{ number_format($order->amount, 2) }}</td>
+                            <td>{{currency_symbol()}}{{ number_format($order->amount, 2) }}</td>
                             <td>
                                 <span class="badge bg-{{ $order->status === 'completed' ? 'success' : ($order->status === 'pending' ? 'warning' : 'danger') }}">
                                     {{ ucfirst($order->status) }}

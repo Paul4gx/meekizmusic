@@ -37,7 +37,7 @@
                                     </div>
                                     <div class="col-lg-2">
                                         <span class="small-title">Amount:</span>
-                                        <h5 class="dz-title"><a>${{ number_format($beat->price, 2) }}</a></h5>
+                                        <h5 class="dz-title"><a>{{currency_symbol()}}{{ number_format($beat->price, 2) }}</a></h5>
                                         
                                     </div>
                                     <div class="col-lg-2">
