@@ -16,28 +16,39 @@
                     <div class="dz-bnr-inr-entry">
                         <h3 class="title" style="margin-bottom:5px;">Feel the Beat, Own the Vibe</h3>
                         <p class="text text-white"  style="margin-bottom:50px;">Exclusive sounds crafted by Meekizmusic producers, ready to ignite your creativity. <br>Hit play and let the rhythm take over.</p>
-                        <div class="dz-player style-2 m-b30" data-src="{{url($heroBeat->preview_url)}}<">
-                            <h5 class="title">{{$heroBeat->title}}</h5>
-                            <button class="dz-play-btn"><span class="dz-play-btnIco"><i class="fa-solid fa-play"></i></span></button>
-                            <button class="dz-play-btn"><span class="dz-play-btnIco"><svg class="svg-inline--fa fa-pause" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pause" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M48 64C21.5 64 0 85.5 0 112V400c0 26.5 21.5 48 48 48H80c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H48zm192 0c-26.5 0-48 21.5-48 48V400c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H240z"></path></svg></span></button>
-                            <div class="dzPlayNum">
-                                <span class="dzPlayCurDuration">0:00</span>
-                            </div>
-                            <div class="dz-player-range">
-                                <span class="under-dz-player-ranger"></span>
-                                <input class="dzPlayRange w-100" type="range" min="0" value="0" step="1" max="251"><span class="change-dz-player-range"></span>
-                            </div>
-                            <div class="dzPlayNum">
-                                <span class="dzPlayDuration">{{$heroBeat->duration}}<</span>
-                            </div>
-                            <div class="dz-volume-container">
-                                <span class="dzPlayerVolIcon"><i class="fa fa-volume-up"></i></span>
-                                <div class="dz-player-range-volume">
-                                    <span class="under-dz-player-ranger"></span>
-                                    <input class="dzPlayVol" type="range" min="0" max="1" value="1" step="0.1"><span class="change-dz-player-range"></span>
+                        @if(!empty($heroBeat))
+                                <div class="dz-player style-2 m-b30" data-src="{{ url($heroBeat->preview_url) }}">
+                                    <h5 class="title">{{ $heroBeat->title }}</h5>
+                                    <button class="dz-play-btn">
+                                        <span class="dz-play-btnIco"><i class="fa-solid fa-play"></i></span>
+                                    </button>
+                                    <button class="dz-play-btn">
+                                        <span class="dz-play-btnIco">
+                                            <svg class="svg-inline--fa fa-pause" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pause" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M48 64C21.5 64 0 85.5 0 112V400c0 26.5 21.5 48 48 48H80c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H48zm192 0c-26.5 0-48 21.5-48 48V400c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H240z"></path></svg>
+                                        </span>
+                                    </button>
+                                    <div class="dzPlayNum">
+                                        <span class="dzPlayCurDuration">0:00</span>
+                                    </div>
+                                    <div class="dz-player-range">
+                                        <span class="under-dz-player-ranger"></span>
+                                        <input class="dzPlayRange w-100" type="range" min="0" value="0" step="1" max="251">
+                                        <span class="change-dz-player-range"></span>
+                                    </div>
+                                    <div class="dzPlayNum">
+                                        <span class="dzPlayDuration">{{ $heroBeat->duration }}</span>
+                                    </div>
+                                    <div class="dz-volume-container">
+                                        <span class="dzPlayerVolIcon"><i class="fa fa-volume-up"></i></span>
+                                        <div class="dz-player-range-volume">
+                                            <span class="under-dz-player-ranger"></span>
+                                            <input class="dzPlayVol" type="range" min="0" max="1" value="1" step="0.1">
+                                            <span class="change-dz-player-range"></span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>	
+                            @endif
+	
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-12 col-sm-12">
