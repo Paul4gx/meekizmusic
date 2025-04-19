@@ -8,7 +8,7 @@
         <div class="dz-info">
             <h6 class="title"><a href="{{ route('beats.show', $beat) }}">{{ $beat->title }}</a></h6>
             <div class="d-flex align-items-center">
-                <span>${{ number_format($beat->price, 2) }}</span>
+                <span>{{currency_symbol()}}{{ number_format($beat->price, 2) }}</span>
             </div>
             <div class="dz-meta">
                 <ul>
@@ -21,11 +21,13 @@
         <div class="music-player">
             <div class="left-content">
                 <span onclick="toggleWishlist(this,{{ $beat->id }})" style="cursor: pointer" class="{{ $beat->inWishlist ? 'heart heart-blast' : 'heart' ?? 'heart' }}"></span>
+                @if($beat->is_sold === false)
                 <a href="{{ route('beats.show', $beat) }}"><i class="flaticon flaticon-download-circular-button"></i> Buy Now</a>
+                @endif
             </div>
             <div class="right-content">
                 <div class="player-container">
-                    <button class="play-pause play bg-transparent border-0" data-audio="{{ Storage::url($beat->preview_url) ?? asset('assets/song/song1.mp3') }}">Play</button>
+                    <button class="play-pause play bg-transparent border-0" data-audio="{{$beat->preview_url}}">Play</button>
                 </div>
             </div>
         </div>

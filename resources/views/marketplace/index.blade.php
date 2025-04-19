@@ -45,23 +45,13 @@
                         <h4 class="title">Genres</h4>
                     </div>
                     <ul>
-                        @foreach($genres as $genre)
-                            <li class="cat-item"><a href="javascript:void(0);">{{ $genre->name }}</a>(1)</li>
-                        @endforeach
+                        @forelse(allgenres() as $genre)
+                            <li class="cat-item"><a href="{{ route('marketplace.index', ['genre' => $genre->slug]) }}">{{ $genre->name }}</a> <i class="la la-arrow-right"></i></li>
+                        @empty
+                            <li>No music genres yet</li>
+                        @endforelse
                     </ul>
                 </div>
-                {{-- <div class="widget">
-                    <h6 class="widget-title"></h6>
-                    <div class="price-slide range-slider">
-                        <div class="price">
-                            <div class="range-slider style-1">
-                                <div id="slider-tooltips" class="mb-3"></div>
-                                <span class="example-val" id="slider-margin-value-min"></span>
-                                <span class="example-val" id="slider-margin-value-max"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
                     <!-- Price Range -->
                     <div class="widget">
                         <h6 class="widget-title">Price Range</h6>
@@ -115,40 +105,6 @@
                     </div>
                 </div>
             @endforelse
-                
-                    {{-- <div class="col">
-                        <div class="dz-card style-1">
-                            <div class="dz-media">
-                                <img src="{{ $beat->image_url ?? asset('assets/images/shop/product/pic1.png') }}" alt="{{ $beat->title }}">
-                                <div class="dz-meta">
-                                    <ul>
-                                        <li class="dz-cart">
-                                            <a href="#" class="btn btn-primary btn-hover-2">Preview</a>
-                                        </li>
-                                        <li class="dz-wishlist">
-                                            <a href="#" class="btn btn-icon btn-light btn-hover-2"><i class="fa-solid fa-heart"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="dz-content">
-                                <h5 class="dz-title"><a href="#">{{ $beat->title }}</a></h5>
-                                <div class="dz-meta">
-                                    <ul>
-                                        <li class="dz-price">${{ number_format($beat->price, 2) }}</li>
-                                        <li class="dz-bpm">{{ $beat->bpm }} BPM</li>
-                                    </ul>
-                                </div>
-                                <div class="dz-category">
-                                    <ul>
-                                        @foreach($beat->genres as $genre)
-                                            <li><a href="#">{{ $genre->name }}</a></li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
             </div>
 
             <div class="row">

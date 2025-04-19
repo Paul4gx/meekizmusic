@@ -18,15 +18,26 @@ class PageController extends Controller
         // ->take(9)
         // ->get();
         // $beats = $this->attachWishlistStatus($beats);
-        $featuredBeats = Beat::with('genres')
-            ->latest()
-            ->take(3)
+        $heroBeat =Beat::where('is_sold', false)->inRandomOrder()->first();
+        // Get the latest 9 featured beats that are not sold, and eager load genres
+            $latestBeat = Beat::where('is_sold', false)
+            ->where('is_featured', true) // Filter for featured beats
+            ->with('genres') // Eager load the genres relationship
+            ->latest() // Sort by the most recent
+            ->take(8) // Get only the 9 most recent
+            ->get();
+
+            // Get the latest 6 beats that are not sold, and eager load genres
+            $featuredBeats = Beat::where('is_sold', false)
+            ->with('genres') // Eager load the genres relationship
+            ->latest() // Sort by the most recent
+            ->take(6) // Get only the 6 most recent
             ->get();
             $genres = Genre::all();
             $featuredBeats = $this->attachWishlistStatus($featuredBeats);
         // Get admin settings for countdown
         $adminSettings = AdminSetting::first();
-        return view('home.index', compact('featuredBeats', 'adminSettings','genres'));
+        return view('home.index', compact('featuredBeats', 'adminSettings','genres','heroBeat','latestBeat'));
     }
 
     public function about()
@@ -36,7 +47,8 @@ class PageController extends Controller
 
     public function contact()
     {
-        return view('pages.contact');
+        $contact_info = AdminSetting::first()->contact_info;
+        return view('pages.contact',compact('contact_info'));
     }
 
     public function submitContact(Request $request)

@@ -1,17 +1,7 @@
 @include('components.header')
+<x-breadcrumb :title="$title ?? 'Admin'" content="" />
 <section class="content-inner bg-white">
     <div class="container">				
-        <div class="row justify-content-between align-items-end border-bottom m-lg-b50 m-b10">
-            <div class="text-center text-xl-start col-xl-6 p-lg-0">
-                <div class="section-head  style-1 m-0">
-                    <h3 class="title wow flipInX" style="font-weight: 600" data-wow-delay="0.4s">@yield('title')</h3>
-                </div>
-            </div>
-            {{-- <div class="text-center text-xl-end col-xl-6 m-b30 p-lg-0">
-                <a href="blog-standard.html" class="btn-link btn-gradient wow flipInX" data-wow-delay="0.6s">VIEW ALL SOLUTION</a>
-            </div> --}}
-        </div>
-
         <div class="row">
             <div class="col-lg-2 p-l0">
                 <div class="site-filters style-3 clearfix sticky-top">
@@ -73,27 +63,4 @@
 </section>
 
 @include('components.footer')
-
-    {{-- <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
-    @stack('styles') --}}
-                {{-- <div class="admin-header-right">
-                    <div class="admin-user-menu">
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="adminDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" class="admin-avatar">
-                                <span>{{ Auth::user()->name }}</span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminDropdown">
-                                <li><a class="dropdown-item" href="{{ route('profile.index') }}">Profile</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <form method="POST" action="{{ route('logout') }}">
-                                        @csrf
-                                        <button type="submit" class="dropdown-item">Logout</button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div> --}}
 

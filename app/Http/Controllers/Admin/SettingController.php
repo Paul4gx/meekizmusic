@@ -18,7 +18,7 @@ class SettingController extends Controller
     public function update(Request $request)
     {
         $validated = $request->validate([
-            'currency' => 'required|string|max:3',
+            'currency' => 'required|string|max:255',
             'contact_info' => 'required|array',
             'contact_info.email' => 'required|email',
             'contact_info.phone' => 'nullable|string',

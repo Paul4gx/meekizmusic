@@ -1,3 +1,4 @@
+@php($title = 'Order Details #'.$order->id)
 @extends('layouts.admin')
 
 @section('title', 'Order Details')
@@ -5,8 +6,7 @@
 @section('content')
 <div class="admin-orders">
     <div class="admin-card">
-        <div class="admin-card-header">
-            <h4>Order Details #{{ $order->id }}</h4>
+        <div class="admin-card-header mb-3">
             <a href="{{ route('admin.orders.index') }}" class="btn btn-secondary">
                 <i class="fas fa-arrow-left"></i> Back to List
             </a>
@@ -44,7 +44,7 @@
                     <div class="admin-info-card">
                         <h5>Customer Information</h5>
                         <div class="d-flex align-items-center mb-3">
-                            <img src="{{ $order->user->profile_photo_url }}" alt="{{ $order->user->name }}" class="admin-user-avatar me-3">
+                            <i class="la la-user-circle me-2" style="color:black; font-size:3rem"></i>
                             <div>
                                 <h6 class="mb-0">{{ $order->user->name }}</h6>
                                 <p class="mb-0">{{ $order->user->email }}</p>
@@ -58,9 +58,9 @@
                 <div class="col-12">
                     <div class="admin-info-card">
                         <h5>Beat Information</h5>
-                        <div class="d-flex align-items-center">
-                            <img src="{{ asset('storage/' . $order->beat->cover_image) }}" alt="{{ $order->beat->title }}" class="admin-beat-cover me-3">
-                            <div>
+                        <div class="d-flex flex-column">
+                            <img src="{{ asset('storage/' . $order->beat->cover_image) }}" alt="{{ $order->beat->title }}" style="width: 200px;height:200px;" class="admin-beat-cover me-3">
+                            <div class="">
                                 <h6 class="mb-1">{{ $order->beat->title }}</h6>
                                 <p class="mb-1">{{ $order->beat->genre }}</p>
                                 <p class="mb-0">{{ $order->beat->description }}</p>
@@ -88,7 +88,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-primary" {{ $order->status === 'completed' ? 'disabled' : '' }}>
                                         <i class="fas fa-save"></i> Update Status
                                     </button>
                                 </div>

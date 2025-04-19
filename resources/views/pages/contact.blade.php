@@ -65,11 +65,11 @@
                     <div class="row mt-4">
                         <div class="col-md-6">
                             <h5>Email</h5>
-                            <p><a href="mailto:support@meekizmusic.com">support@meekizmusic.com</a></p>
+                            <p><a href="mailto:{{ $contact_info['email'] }}">{{ $contact_info['email'] ?? 'N/A' }}</a></p>
                             <h5>Phone number</h5>
-                            <p><a href="tel:+447443973717">+44(744)397-3717</a></p>
+                            <p><a href="tel:{{ $contact_info['phone'] }}">{{ $contact_info['phone'] ?? 'N/A' }}</a></p>
                             <h5>Office Address</h5>
-                            <p>NO. 1 OSIFO STREET, OFF NOMAMIDOBO STR, EVBUOMORE QRTS, BENIN CITY, EDO STATE</p>
+                            <p>{{ $contact_info['address'] ?? 'N/A' }}</p>
                         </div>
                         <div class="col-md-6">
                             <h5>Social Media</h5>

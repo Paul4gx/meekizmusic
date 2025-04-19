@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Beat;
-use App\Models\Order;
+use App\Models\Purchase;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -20,7 +20,7 @@ class DashboardController extends Controller
         $wishlistItems = $user->wishlist()->latest()->take(6)->get();
         
         // Get recent purchases
-        $recentPurchases = Order::where('user_id', $user->id)
+        $recentPurchases = Purchase::where('user_id', $user->id)
             ->with('beat')
             ->latest()
             ->take(5)
@@ -28,8 +28,8 @@ class DashboardController extends Controller
         
         // Get statistics
         $stats = [
-            'total_purchases' => Order::where('user_id', $user->id)->count(),
-            'total_spent' => Order::where('user_id', $user->id)->sum('amount'),
+            'total_purchases' => Purchase::where('user_id', $user->id)->count(),
+            'total_spent' => Purchase::where('user_id', $user->id)->sum('amount'),
             'wishlist_count' => $user->wishlist()->count(),
         ];
 

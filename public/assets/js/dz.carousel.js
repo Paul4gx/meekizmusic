@@ -168,7 +168,7 @@ jQuery(window).on('load', function() {
 	//  handle Category Swiper2 ==
 	if(jQuery('.category-swiper2').length > 0){
 		var swiper = new Swiper( '.category-swiper2', {
-			slidesPerView: 6,
+			slidesPerView: 4,
 			centeredSlides: false,
 			spaceBetween: 20,
 			loop: true,
@@ -184,11 +184,11 @@ jQuery(window).on('load', function() {
 			},	
 			breakpoints: {
 				1600: {
-					slidesPerView: 6,
+					slidesPerView: 4,
 					spaceBetween: 40,
 				},
 				1200: {
-					slidesPerView: 6,
+					slidesPerView: 4,
 					spaceBetween: 20,
 				},
 				991: {

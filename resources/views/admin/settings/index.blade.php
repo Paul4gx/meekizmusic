@@ -17,7 +17,7 @@
                                 <label for="currency" class="form-label">Default Currency</label>
                                 <input type="text" class="form-control @error('currency') is-invalid @enderror" 
                                        id="currency" name="currency" value="{{ old('currency', $settings?->currency ?? 'USD') }}" 
-                                       maxlength="3" required>
+                                        required>
                                 @error('currency')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -93,7 +93,7 @@
                 </div>
             </div>
 </section>
-
+@endsection
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
         div.className = 'input-group mb-2';
         div.innerHTML = `
             <input type="text" class="form-control" name="quick_search[]" placeholder="e.g., Trap, Hip Hop, R&B">
-            <button type="button" class="btn btn-danger remove-word">Remove</button>
+            <button type="button" class="btn btn-danger remove-word"><i class="fas fa-remove"></i></button>
         `;
         container.appendChild(div);
     }
@@ -129,5 +129,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-@endpush
-@endsection 
+@endpush 

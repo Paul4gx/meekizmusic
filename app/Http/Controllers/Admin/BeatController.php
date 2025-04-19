@@ -52,12 +52,13 @@ class BeatController extends Controller
                 'cover_image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
                 'genre_ids' => 'required|array',
                 'genre_ids.*' => 'exists:genres,id',
+                'trimmed_audio_file' => 'required|file|mimes:wav'
             ]);
 
+            $trimmedPath = $request->file('trimmed_audio_file')->store('beats/previews');
             // Handle file uploads
-            $fileUrl = $request->file('audio_file')->store('beats/audio', 'public');
-            $coverImage = $request->file('cover_image')->store('beats/covers', 'public');
-
+            $fileUrl = $request->file('audio_file')->store('beats/audio'); // Stored privately (default disk)
+            $coverImage = $request->file('cover_image')->store('beats/covers', 'public'); // Stored privately (default disk)
             // Extract dominant color from cover image
             $colorAccent = '#000000'; // Default color
             try {
@@ -70,6 +71,7 @@ class BeatController extends Controller
             $beat = Beat::create([
                 'title' => $request->title,
                 'description' => $request->description,
+                'preview_url' => $trimmedPath,
                 'price' => $request->price,
                 'bpm' => $request->bpm,
                 'duration' => $request->duration,
@@ -86,7 +88,7 @@ class BeatController extends Controller
             $beat->genres()->attach($request->genre_ids);
 
             // Generate preview
-            GenerateBeatPreview::dispatch($beat);
+            // GenerateBeatPreview::dispatch($beat);
 
             return redirect()->route('admin.beats.index')
                 ->with('success', 'Beat created successfully.')
@@ -187,9 +189,10 @@ class BeatController extends Controller
             'genre_ids' => 'required|array',
             'genre_ids.*' => 'exists:genres,id',
             'audio_file' => 'nullable|file|mimes:mp3,wav|max:10240',
-            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif,avif|max:2048',
             'is_featured' => 'boolean',
-            'status' => 'required|in:draft,published,archived'
+            'status' => 'required|in:draft,published,archived',
+            'trimmed_audio_file' => 'required|file|mimes:wav'
         ]);
 
         try {
@@ -197,14 +200,17 @@ class BeatController extends Controller
             if ($request->hasFile('audio_file')) {
                 // Delete old audio file and preview
                 if ($beat->file_url) {
-                    Storage::disk('public')->delete($beat->file_url);
+                    Storage::delete($beat->file_url); // Using default disk (local/private)
                 }
                 if ($beat->preview_url) {
-                    Storage::disk('public')->delete($beat->preview_url);
+                    Storage::delete($beat->preview_url);
                 }
-                $validated['file_url'] = $request->file('audio_file')->store('beats/audio', 'public');
-                $validated['preview_url'] = null; // Reset preview URL
+                // Store the uploaded file in private storage
+                $validated['file_url'] = $request->file('audio_file')->store('beats/audio');
+                // Reset preview URL so it can be regenerated later
+                $validated['preview_url'] = $request->file('trimmed_audio_file')->store('beats/previews');
             }
+            
 
             // Handle cover image upload
             if ($request->hasFile('cover_image')) {
@@ -229,11 +235,6 @@ class BeatController extends Controller
             // Sync genres
             $beat->genres()->sync($validated['genre_ids']);
 
-            // Dispatch preview generation job if audio file was updated
-            if ($request->hasFile('audio_file')) {
-                GenerateBeatPreview::dispatch($beat);
-            }
-
             return redirect()->route('admin.beats.index')
                 ->with('success', 'Beat updated successfully.')
                 ->with('preview_generation', $request->hasFile('audio_file'));
@@ -250,13 +251,13 @@ class BeatController extends Controller
         try {
             // Delete associated files
             if ($beat->file_url) {
-                Storage::disk('public')->delete($beat->file_url);
+                Storage::delete($beat->file_url); // Deletes from the private storage
             }
             if ($beat->cover_image) {
                 Storage::disk('public')->delete($beat->cover_image);
             }
             if ($beat->preview_url) {
-                Storage::disk('public')->delete($beat->preview_url);
+                Storage::delete($beat->preview_url); // Deletes from the private storage
             }
 
             // Delete the beat record

@@ -1,3 +1,4 @@
+@php($title = 'Dashboard')
 @extends('layouts.auth')
 
 @section('title', 'Dashboard')
@@ -45,7 +46,7 @@
                     </span>
                                         <div class="dz-info bg-gray">
                         <h6 class="dz-subtitle"><a>Total Spent</a></h6>
-                        <h5 class="dz-title"><a>${{ number_format($stats['total_spent'], 2) }}</a></h5>
+                        <h5 class="dz-title"><a>{{ currency_symbol().number_format($stats['total_spent'], 2) }}</a></h5>
                     </div>
                 </div>
             </div>

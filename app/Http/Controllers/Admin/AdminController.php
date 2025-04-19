@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Beat;
-use App\Models\Order;
+use App\Models\Purchase;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -16,17 +16,17 @@ class AdminController extends Controller
         // Get total counts
         $totalUsers = User::count();
         $totalBeats = Beat::count();
-        $totalOrders = Order::count();
-        $totalRevenue = Order::sum('amount');
+        $totalOrders = Purchase::count();
+        $totalRevenue = Purchase::sum('amount');
 
         // Get this month's counts
         $newUsersThisMonth = User::whereMonth('created_at', Carbon::now()->month)->count();
         $newBeatsThisMonth = Beat::whereMonth('created_at', Carbon::now()->month)->count();
-        $newOrdersThisMonth = Order::whereMonth('created_at', Carbon::now()->month)->count();
-        $revenueThisMonth = Order::whereMonth('created_at', Carbon::now()->month)->sum('amount');
+        $newOrdersThisMonth = Purchase::whereMonth('created_at', Carbon::now()->month)->count();
+        $revenueThisMonth = Purchase::whereMonth('created_at', Carbon::now()->month)->sum('amount');
 
         // Get recent orders
-        $recentOrders = Order::with(['user', 'beat'])
+        $recentOrders = Purchase::with(['user', 'beat'])
             ->latest()
             ->take(5)
             ->get();
@@ -65,7 +65,7 @@ class AdminController extends Controller
         });
 
         $data = $months->map(function($month) {
-            return Order::whereYear('created_at', $month->year)
+            return Purchase::whereYear('created_at', $month->year)
                 ->whereMonth('created_at', $month->month)
                 ->sum('amount');
         });

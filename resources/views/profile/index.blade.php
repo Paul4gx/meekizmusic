@@ -1,3 +1,4 @@
+@php($title = 'My Profile')
 @extends('layouts.auth')
 @section('title', 'Profile')
 @section('content')

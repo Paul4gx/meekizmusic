@@ -1,3 +1,4 @@
+@php($title = 'My Wishlist')
 @extends('layouts.auth')
 
 @section('title', 'My Wishlist')

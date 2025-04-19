@@ -446,25 +446,27 @@ var W3music = function(){
 				console.log("Formatted Countdown Date:", formattedDate); // Debugging output
 	
 			} else {
-				console.error("Invalid WebsiteLaunchDate format:", WebsiteLaunchDate);
+				console.log("Invalid WebsiteLaunchDate format:", WebsiteLaunchDate);
 			}
 		} else {
-			console.error("WebsiteLaunchDate is not set.");
+			console.log("WebsiteLaunchDate is not set.");
 		}
 	
 	/* Countdown Function */
-	var handleCountDown = function(){
-		if(jQuery(".countdown").length) {
-			// Define interval to prevent errors
-			var interval;
+/* Countdown Function */
+var handleCountDown = function(){
+	if(jQuery(".countdown").length && formattedDate) {
+		jQuery('.countdown').countdown({ 
+			date: formattedDate
+		}, function() {
+			jQuery('.countdown').text('We are live');
+		});
+	} else {
+		jQuery('.countdown').text('We are live');
+	}
+};
 
-			jQuery('.countdown').countdown({ 
-				date: formattedDate 
-			}, function() {
-				jQuery('.countdown').text('We are live');
-			});
-		}
-	};
+
 	
 		
 	// Light Gallery ============

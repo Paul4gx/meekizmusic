@@ -1,3 +1,4 @@
+@php($title = 'Edit Users')
 @extends('layouts.admin')
 
 @section('title', 'Edit User')
@@ -5,8 +6,7 @@
 @section('content')
 <div class="admin-users">
     <div class="admin-card">
-        <div class="admin-card-header">
-            <h4>Edit User</h4>
+        <div class="admin-card-header mb-3">
             <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">
                 <i class="fas fa-arrow-left"></i> Back to List
             </a>

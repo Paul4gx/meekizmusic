@@ -3,16 +3,42 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Transaction extends Model
 {
-    protected $fillable = ['user_id', 'order_id', 'amount', 'status'];
+    use HasFactory;
 
-    public function user() {
+    protected $fillable = [
+        'user_id',
+        'beat_id',
+        'reference',
+        'amount',
+        'currency',
+        'status',
+        'channel',
+        'gateway_response',
+        'paid_at',
+    ];
+
+    protected $casts = [
+        'paid_at' => 'datetime',
+    ];
+
+    // 🔗 Relationships
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function order() {
-        return $this->belongsTo(Order::class);
+    public function beat()
+    {
+        return $this->belongsTo(Beat::class);
+    }
+
+    public function purchase()
+    {
+        return $this->hasOne(Purchase::class);
     }
 }

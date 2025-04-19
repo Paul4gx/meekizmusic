@@ -36,9 +36,11 @@
                                 <div class="col-lg-3">
                                     <a href="{{ route('marketplace.index') }}" class="menu-title">Browse by Genre</a>
                                     <ul>
-                                        <li><a href="{{ route('marketplace.index', ['genre' => 'hip-hop']) }}">Hip Hop</a></li>
-                                        <li><a href="{{ route('marketplace.index', ['genre' => 'rnb']) }}">R&B</a></li>
-                                        <li><a href="{{ route('marketplace.index', ['genre' => 'trap']) }}">Trap</a></li>
+                                        @forelse(allgenres() as $genre)
+                                            <li><a href="{{ route('marketplace.index', ['genre' => $genre->slug]) }}">{{ $genre->name }}</a></li>
+                                        @empty
+                                            <li>No music genres yet</li>
+                                        @endforelse
                                         <li><a href="{{ route('marketplace.index') }}">View All Genres</a></li>
                                     </ul>
                                 </div>
@@ -64,8 +66,8 @@
                     <li class="{{ request()->routeIs('marketplace.afrobeat') ? 'active' : '' }}">
                         <a href="{{ route('marketplace.afrobeat') }}"><span>Afrobeat</span></a>
                     </li>
-                    <li class="{{ request()->routeIs('about') ? 'active' : '' }}">
-                        <a href="{{ route('about') }}"><span>About</span></a>
+                    <li class="{{ request()->routeIs('marketplace.featured') ? 'active' : '' }}">
+                        <a href="{{ route('marketplace.featured') }}"><span>Featured</span></a>
                     </li>
                     <li class="{{ request()->routeIs('contact') ? 'active' : '' }}">
                         <a href="{{ route('contact') }}"><span>Contact</span></a>
@@ -77,30 +79,41 @@
             <div class="extra-nav">
                 <div class="extra-cell">
                     @guest
-                        <a href="{{ route('login') }}" class="btn btn-primary btn-hover-2">
-                            <span>Login</span>
-                        </a>
-                    @else
-                        <div class="dropdown">
-                            <button class="btn btn-primary btn-hover-2 dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span>{{ Auth::user()->name }}</span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                    <a href="{{ route('login') }}" class="btn btn-primary">
+                        <span>Login</span>
+                    </a>
+                @else
+                    <div class="dropdown">
+                        <button class="btn {{(Auth::user()->role === 'admin')?'btn-dark':'btn-primary'}} dropdown-toggle d-flex align-items-center" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="la la-user-circle me-2"></i>
+                            <span>{{ Auth::user()->name }}</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            @if (Auth::user()->role === 'admin')
+                                <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                                <li><a class="dropdown-item" href="{{ route('admin.beats.index') }}">Beats</a></li>
+                                <li><a class="dropdown-item" href="{{ route('admin.orders.index') }}">Orders</a></li>
+                                <li><a class="dropdown-item" href="{{ route('admin.users.index') }}">Users</a></li>
+                                <li><a class="dropdown-item" href="{{ route('admin.settings.index') }}">Settings</a></li>
+                            @else
                                 <li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a></li>
                                 <li><a class="dropdown-item" href="{{ route('wishlist.index') }}">Wishlist</a></li>
                                 <li><a class="dropdown-item" href="{{ route('purchased.index') }}">Orders</a></li>
                                 <li><a class="dropdown-item" href="{{ route('profile.index') }}">Profile</a></li>
                                 <li><a class="dropdown-item" href="{{ route('settings.index') }}">Settings</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <form method="POST" action="{{ route('logout') }}">
-                                        @csrf
-                                        <button type="submit" class="dropdown-item">Logout</button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </div>
-                    @endguest
+                            @endif
+                
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                @endguest
+                
                 </div>
             </div>
         </div>

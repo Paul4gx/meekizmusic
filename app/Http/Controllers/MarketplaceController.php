@@ -12,7 +12,7 @@ class MarketplaceController extends Controller
 {
     public function index(Request $request)
 {
-    $query = Beat::with('genres');
+    $query = Beat::where('is_sold', false)->with('genres');
     $adminSettings = AdminSetting::first();
 
     // Search
@@ -38,7 +38,8 @@ class MarketplaceController extends Controller
         $genre = $request->genre;
         $query->whereHas('genres', function($q) use ($genre) {
             $q->where('genres.id', $genre)
-              ->orWhere('genres.name', 'like', "%{$genre}%");
+            ->orWhere('genres.name', 'like', "%{$genre}%")
+            ->orWhere('genres.slug', 'like', "%{$genre}%");
         });
     }
 
@@ -84,52 +85,31 @@ class MarketplaceController extends Controller
 }
     public function afrobeat(Request $request)
 {
-    $query = Beat::with('genres')
+    $query = Beat::where('is_sold', false)->with('genres')
                 ->whereHas('genres', function($q) {
                     $q->where('name', 'like', '%afrobeat%');
                 });
-
-    // Price range filter
-    if ($request->has('min_price')) {
-        $query->where('price', '>=', $request->min_price);
-    }
-    if ($request->has('max_price')) {
-        $query->where('price', '<=', $request->max_price);
-    }
-
-    // BPM range filter
-    if ($request->has('min_bpm')) {
-        $query->where('bpm', '>=', $request->min_bpm);
-    }
-    if ($request->has('max_bpm')) {
-        $query->where('bpm', '<=', $request->max_bpm);
-    }
-
-    // Sorting
-    switch ($request->sort) {
-        case 'price_low_high':
-            $query->orderBy('price', 'asc');
-            break;
-        case 'price_high_low':
-            $query->orderBy('price', 'desc');
-            break;
-        case 'most_popular':
-            $query->orderBy('downloads', 'desc');
-            break;
-        default:
-            $query->orderBy('created_at', 'desc');
-    }
-
     // Paginate results
     $beats = $query->paginate(12);
     $genres = Genre::all();
-
     // Attach wishlist status efficiently
     $beats = $this->attachWishlistStatus($beats);
 
     return view('marketplace.afrobeat', compact('beats', 'genres'));
 }
+public function featured(Request $request) 
+{
+    $beats = Beat::where('is_featured', true) // true to get featured beats
+                 ->where('is_sold', false)    // exclude sold beats
+                 ->with('genres')
+                 ->paginate(12);
+    $genres = Genre::all();
 
+    // Attach wishlist status efficiently
+    $beats = $this->attachWishlistStatus($beats);
+
+    return view('marketplace.featured', compact('beats', 'genres'));
+}
 
     public function keywords()
     {

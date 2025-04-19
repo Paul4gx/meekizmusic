@@ -1,7 +1,6 @@
+@php($title = 'Admin Dashboard')
 @extends('layouts.admin')
-
 @section('title', 'Admin Dashboard')
-
 @section('content')
 <section class="content-inner-2 pt-0">
     <div class="container">
@@ -96,24 +95,26 @@
 				<div class="row dz-tooltip-blog wow fadeInUp" data-wow-delay="0.8s" style="visibility: visible; animation-delay: 0.8s; animation-name: fadeInUp;">
                     @foreach($recentOrders as $order)
                     <div class="col-12">
-						<div class="dz-card style-4 image-tooltip-effect" data-url="assets/images/blog/grid3/pic1.jpg">
+						<div class="dz-card style-4">
 							<div class="row dz-info justify-content-between">
 								<div class="col-lg-2">
+                                    <span class="small-title">Date:</span>
 									<h5 class="dz-title"><a>{{ $order->created_at->format('M d, Y') }}</a></h5>
-									{{-- <span class="small-title">pm</span> --}}
 								</div>
 								<div class="col-lg-3">
+                                    <span class="small-title">Customer Name:</span>
 									<h5 class="dz-title"><a>{{ $order->user->name }}</a></h5>
 								</div>
 								<div class="col-lg-2">
+                                    <span class="small-title">Beat Title:</span>
 									<h5 class="dz-title"><a>{{ $order->beat->title }}</a></h5>
-									{{-- <span class="small-title">Music Director</span> --}}
 								</div>
 								<div class="col-lg-2">
+                                    <span class="small-title">Amount Sold:</span>
 									<h5 class="dz-title"><a>${{ number_format($order->amount, 2) }}</a></h5>
-									{{-- <span class="small-title">Black Rock Club</span> --}}
 								</div>
 								<div class="col-lg-1">
+                                    <span class="small-title">Status:</span>
 									<span class="badge bg-success">Completed</span>
 								</div>
 							</div>
@@ -156,17 +157,10 @@
 				</div>
                     <div class="row">
                         @foreach($recentUsers as $user)
-                        <div class="col-md-4 p-1">
-                            <div class="dz-img-box style-3 overlay-shine">
-                                <div class="dz-media" style="width:100px;height:100px;">
-                                    <img src="{{ $user->profile_photo_url ?? 'assets/images/blog/grid/pic10.jpg' }}" alt="{{ $user->name }}">
-                                </div>
-                                <div class="dz-content">
-                                    <h6 class="title">{{ $user->name }}</h6>
-                                    <p class="pb-0">{{ $user->email }}</p>
-                                    <p>Joined on: {{ $user->created_at->format('M d') }}</p>		
-                                </div>
-                            </div>
+                        <div class="col-md-4 p-1 d-flex justify-content-center flex-column align-items-center" style="border-left: #FF421D 2px solid">
+                                    <h6 class=""><i class="la la-user-circle me-2" style="color:black"></i> {{ $user->name }}</h6>
+                                    <p class="pb-0 m-0">{{ $user->email }}</p>
+                                    <em class="p-0" style="font-size:0.8rem">Joined on: {{ $user->created_at->format('M d') }}</em>		
                     </div>
                         @endforeach
                     </div>
@@ -180,6 +174,7 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    console.log({!! json_encode($revenueChartData['labels']) !!});
     // Revenue Chart
     const ctx = document.getElementById('revenueChart').getContext('2d');
     new Chart(ctx, {
@@ -201,7 +196,7 @@
                     beginAtZero: true,
                     ticks: {
                         callback: function(value) {
-                            return '$' + value;
+                            return 'N' + value;
                         }
                     }
                 }

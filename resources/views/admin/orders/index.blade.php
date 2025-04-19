@@ -1,3 +1,4 @@
+@php($title = 'Manage Orders')
 @extends('layouts.admin')
 
 @section('title', 'Manage Orders')
@@ -5,9 +6,6 @@
 @section('content')
 <div class="admin-orders">
     <div class="admin-card">
-        <div class="admin-card-header">
-            <h4>Manage Orders</h4>
-        </div>
         <div class="admin-card-body">
             <div class="table-responsive">
                 <table class="table">
@@ -28,13 +26,13 @@
                             <td>#{{ $order->id }}</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <img src="{{ $order->user->profile_photo_url }}" alt="{{ $order->user->name }}" class="admin-user-avatar me-2">
+                                    <i class="la la-user-circle me-2" style="color:black"></i>
                                     {{ $order->user->name }}
                                 </div>
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <img src="{{ asset('storage/' . $order->beat->cover_image) }}" alt="{{ $order->beat->title }}" class="admin-beat-cover me-2">
+                                    <img src="{{ asset('storage/' . $order->beat->cover_image) }}" alt="{{ $order->beat->title }}" style="width:50px;height:50px;" class="admin-beat-cover me-2">
                                     {{ $order->beat->title }}
                                 </div>
                             </td>

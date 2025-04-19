@@ -16,11 +16,13 @@ Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::post('/contact', [PageController::class, 'submitContact'])->name('contact.submit');
+Route::get('/beats/previews/{filename}', [BeatController::class, 'preview']);
 
 // Marketplace routes
 Route::prefix('marketplace')->name('marketplace.')->group(function () {
     Route::get('/', [MarketplaceController::class, 'index'])->name('index');
     Route::get('/afrobeat', [MarketplaceController::class, 'afrobeat'])->name('afrobeat');
+    Route::get('/featured', [MarketplaceController::class, 'featured'])->name('featured');
 });
 
 // Authentication routes
@@ -44,14 +46,22 @@ Route::middleware(['auth'])->group(function () {
     
     // Purchases
     Route::get('/purchased', [PurchasedController::class, 'index'])->name('purchased.index');
+// The download route in your web.php routes file should look like this:
+Route::get('/purchased/{order}/download', [PurchasedController::class, 'download'])->name('purchased.download');
     
     // Beats
     Route::get('/beats/{beat}', [BeatController::class, 'show'])->name('beats.show');
+    // Route::get('/beats/full/{filename}', [BeatController::class, 'full']);
+    
     
     // Checkout
+    Route::get('/checkout/callback', [CheckoutController::class, 'callback'])->name('checkout.callback');
     Route::get('/checkout/{beat}', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout/initialize', [CheckoutController::class, 'initialize'])->name('checkout.initialize');
-    Route::get('/checkout/callback', [CheckoutController::class, 'callback'])->name('checkout.callback');
+    
+    //Play Beat
+    
+
 });
 
 // Admin Routes
@@ -67,6 +77,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     
     // Orders Management
     Route::resource('orders', App\Http\Controllers\Admin\OrderController::class);
+    Route::get('/orders/update-status', [App\Http\Controllers\Admin\AdminController::class, 'update-status'])->name('orders.update-status');
     
     // Settings
     Route::get('settings', [App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');

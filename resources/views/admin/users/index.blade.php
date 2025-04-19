@@ -1,7 +1,7 @@
 @php
 use App\Models\User;
 @endphp
-
+@php($title = 'Manage Users')
 @extends('layouts.admin')
 
 @section('title', 'Manage Users')
@@ -9,9 +9,6 @@ use App\Models\User;
 @section('content')
 <div class="admin-users">
     <div class="admin-card">
-        <div class="admin-card-header">
-            <h4>Manage Users</h4>
-        </div>
         <div class="admin-card-body">
             <div class="table-responsive">
                 <table class="table">
@@ -30,8 +27,13 @@ use App\Models\User;
                         @foreach($users as $user)
                         <tr>
                             <td>
-                                <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" class="admin-user-avatar">
-                            </td>
+                                @if ($user->profile_photo_path)
+                                <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}" style="width:100px;height:100px;" class="admin-user-avatar">
+                            @else
+                                <i class="la la-user-circle me-2" style="color:black; font-size:2rem;"></i>
+                            @endif
+
+                        </td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>
