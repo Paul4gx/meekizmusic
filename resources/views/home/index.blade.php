@@ -16,8 +16,8 @@
                     <div class="dz-bnr-inr-entry">
                         <h3 class="title" style="margin-bottom:5px;">Feel the Beat, Own the Vibe</h3>
                         <p class="text text-white"  style="margin-bottom:50px;">Exclusive sounds crafted by Meekizmusic producers, ready to ignite your creativity. <br>Hit play and let the rhythm take over.</p>
-                        @if($heroBeat)
-                                <div class="dz-player style-2 m-b30" data-src="{{ url($heroBeat->preview_url) }}">
+                        @if(!empty($heroBeat) && $heroBeat->preview_url)
+                                <div class="dz-player style-2 m-b30" data-src="{{ htmlspecialchars(url($heroBeat->preview_url)) }}">
                                     <h5 class="title">{{ $heroBeat->title }}</h5>
                                     <button class="dz-play-btn">
                                         <span class="dz-play-btnIco"><i class="fa-solid fa-play"></i></span>
