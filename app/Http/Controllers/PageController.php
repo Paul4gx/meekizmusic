@@ -18,10 +18,9 @@ class PageController extends Controller
         // ->take(9)
         // ->get();
         // $beats = $this->attachWishlistStatus($beats);
-        $heroBeat =Beat::where('is_sold', false)->inRandomOrder()->first();
+        $heroBeat =Beat::inRandomOrder()->first();
         // Get the latest 9 featured beats that are not sold, and eager load genres
             $latestBeat = Beat::where('is_sold', false)
-            ->where('is_featured', true) // Filter for featured beats
             ->with('genres') // Eager load the genres relationship
             ->latest() // Sort by the most recent
             ->take(8) // Get only the 9 most recent
@@ -29,11 +28,13 @@ class PageController extends Controller
 
             // Get the latest 6 beats that are not sold, and eager load genres
             $featuredBeats = Beat::where('is_sold', false)
+            ->where('is_featured', true)
             ->with('genres') // Eager load the genres relationship
             ->latest() // Sort by the most recent
             ->take(6) // Get only the 6 most recent
             ->get();
             $genres = Genre::all();
+            $latestBeat = $this->attachWishlistStatus($latestBeat);
             $featuredBeats = $this->attachWishlistStatus($featuredBeats);
         // Get admin settings for countdown
         $adminSettings = AdminSetting::first();

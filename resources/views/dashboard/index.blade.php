@@ -96,30 +96,57 @@
             <div class="text-center text-xl-end col-xl-6 m-b30 m-lg-b40">
                 <a href="{{route('purchased.index')}}" class="btn-link btn-gradient wow flipInX" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; animation-name: flipInX;">View All</a>
             </div>
+            <div id="download-alert" class="alert alert-success d-none">
+                Your download in progress...
+            </div>
         </div>
 
         <div class="row dz-tooltip-blog wow fadeInUp" data-wow-delay="0.8s" style="visibility: visible; animation-delay: 0.8s; animation-name: fadeInUp;">
-            @forelse($recentPurchases as $purchase)
+            @forelse($recentPurchases as $order)
             <div class="col-12">
-                <div class="dz-card style-4 image-tooltip-effect" data-url="assets/images/blog/grid3/pic1.jpg">
+                <div class="dz-card style-4">
                     <div class="row dz-info justify-content-between">
                         <div class="col-lg-2">
-                            <h5 class="dz-title"><a href="blog-details.html">{{ $purchase->created_at->format('M d, Y') }}</a></h5>
-                            <span class="small-title">pm</span>
+                            <span class="small-title">Date:</span>
+                            <h5 class="dz-title"><a>{{ $order->created_at->format('M d, Y') }}</a></h5>
                         </div>
                         <div class="col-lg-3">
-                            <h5 class="dz-title"><a href="blog-details.html">{{ $purchase->beat->title }}</a></h5>
+                            <span class="small-title">Beat title:</span>
+                            <h5 class="dz-title"><a href="{{ route('beats.show', $order->beat) }}">{{ $order->beat->title }}</a></h5>
                         </div>
                         <div class="col-lg-2">
-                            <h5 class="dz-title"><a href="blog-details.html">${{ number_format($purchase->amount, 2) }}</a></h5>
-                            <span class="small-title">Music Director</span>
+                            <span class="small-title">Amount:</span>
+                            <h5 class="dz-title"><a>{{ currency_symbol().number_format($order->amount, 2) }}</a></h5>
                         </div>
                         <div class="col-lg-2">
-                            <h5 class="dz-title"><a href="blog-details.html">Dallas</a></h5>
-                            <span class="small-title">Black Rock Club</span>
+                            <span class="small-title">Payment status:</span>
+                            
+                            <!-- Set the text color based on the payment status -->
+                            <h5 class="dz-title">
+                                <!-- Conditionally set class and text based on payment status -->
+                                <span class="{{ $order->status === 'completed' ? 'text-success' : ($order->status === 'failed' ? 'text-danger' : 'text-warning') }}">
+                                    {{ ucfirst($order->status) }} <!-- Capitalize the first letter of status -->
+                                </span>
+                            </h5>
+                            
+                            <!-- Show a retry payment form for failed payment -->
+                            @if($order->status === 'failed')
+                                <form action="{{ route('checkout.initialize') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="beat_id" value="{{ $beat->id }}"> <!-- Beat ID for retrying payment -->
+                                    <button type="submit" class="btn btn-danger btn-md rounded-0 text-uppercase">
+                                        Retry Payment
+                                    </button>
+                                </form>
+                            @elseif($order->status === 'unknown')
+                                <a class="btn btn-warning" href="/contact">Contact Customer Care</a>
+                            @endif
                         </div>
+                        
+                        
                         <div class="col-lg-1">
-                            <a href="{{ route('purchased.download', $purchase) }}" class="btn-link text-secondary"><i class="la la-arrow-down"></i></a>
+                            <a href="{{ route('purchased.download', $order) }}" onclick="startDownload()" class="btn-link text-secondary"><i class="la la-arrow-down"></i>
+                            <span class="d-block" style="font-size:0.7rem">Download full Beat</span></a>
                         </div>
                     </div>
                 </div>
@@ -133,6 +160,11 @@
 </section>
 
 @push('scripts')
-
+<script>
+    function startDownload(url) {
+        // Show message
+        document.getElementById('download-alert').classList.remove('d-none');
+    }
+</script>
 @endpush
 @endsection 

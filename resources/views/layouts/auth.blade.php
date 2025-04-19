@@ -1,6 +1,6 @@
     @include('components.header')
     <x-breadcrumb :title="$title ?? ''" content="" />
-    <section class="content-inner bg-white pt-0">
+    <section class="content-inner bg-white">
         <div class="container">				
             <div class="row">
                 <div class="col-lg-2 p-l0">
