@@ -207,7 +207,7 @@ class BeatController extends Controller
             'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif,avif|max:2048',
             'is_featured' => 'boolean',
             'status' => 'required|in:draft,published,archived',
-            'trimmed_audio_file' => 'required|file|mimes:wav'
+            'trimmed_audio_file' => 'nullable|file|mimes:wav'
         ]);
 
         try {

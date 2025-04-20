@@ -53,7 +53,7 @@
                                     <div class="mb-3">
                                         <label for="bpm" class="form-label">BPM</label>
                                         <input type="number" class="form-control @error('bpm') is-invalid @enderror" 
-                                               id="bpm" name="bpm" value="{{ old('bpm', $beat->bpm) }}" min="0">
+                                               id="bpm" name="bpm" value="{{ old('bpm', $beat->bpm) }}" min="0" required>
                                         @error('bpm')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -64,7 +64,7 @@
                             <div class="mb-3">
                                 <label for="duration" class="form-label">Duration</label>
                                 <input type="text" class="form-control @error('duration') is-invalid @enderror" 
-                                       id="duration" name="duration" value="{{ old('duration', $beat->duration) }}" placeholder="e.g., 3:45">
+                                       id="duration" name="duration" value="{{ old('duration', $beat->duration) }}" placeholder="e.g., 3:45" required>
                                 @error('duration')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -113,7 +113,7 @@
                                 @if($beat->file_url)
                                     <div class="mt-2">
                                         <audio controls class="w-100">
-                                            <source src="{{ Storage::url($beat->file_url) }}" type="audio/mpeg">
+                                            <source src="{{ url($beat->preview_url) }}" type="audio/mpeg">
                                             Your browser does not support the audio element.
                                         </audio>
                                     </div>
@@ -124,7 +124,7 @@
                                                                     Processing audio...
                                                                 </div>
                                                                 <audio id="audioPreview" controls class="mt-2 d-none" style="width: 100%"></audio>
-                                                                <input type="hidden" name="trimmed_audio" id="trimmedAudio">
+                                                                {{-- <input type="hidden" name="trimmed_audio" id="trimmedAudio"> --}}
                                                                     <!-- Hidden file input for trimmed audio -->
                                                                 <input type="file" id="trimmedAudioFile" name="trimmed_audio_file" class="d-none" accept=".wav">
                             </div>
@@ -183,14 +183,16 @@
     </section>
     
     <script>
+        window.trimmedAudioBlob = "no-upload";
         // Modified form submission handler
         document.getElementById('beatForm').addEventListener('submit', function(e) {
+            
             if (!window.trimmedAudioBlob) {
                 alert("Please wait for audio processing to complete");
                 e.preventDefault();
                 return;
             }
-            
+            if(window.trimmedAudioBlob !== "no-upload" && window.trimmedAudioBlob){
             // Convert blob to File object and assign to hidden input
             const previewFile = new File([window.trimmedAudioBlob], 'preview.wav', {
                 type: 'audio/wav',
@@ -202,6 +204,7 @@
             document.getElementById('trimmedAudioFile').files = dataTransfer.files;
             
             // Form will now submit normally with both files
+            }
         });
     </script>
   <script>
@@ -249,25 +252,25 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Form submission handler
-    document.getElementById('beatForm').addEventListener('submit', function(e) {
-        if (!window.trimmedAudioBlob) {
-            alert("Please wait for audio processing to complete");
-            e.preventDefault();
-            return;
-        }
+    // // Form submission handler
+    // document.getElementById('beatForm').addEventListener('submit', function(e) {
+    //     if (!window.trimmedAudioBlob) {
+    //         alert("Please wait for audio processing to complete");
+    //         e.preventDefault();
+    //         return;
+    //     }
         
-        // Convert blob to base64 for form submission
-        const reader = new FileReader();
-        reader.onload = () => {
-            document.getElementById('trimmedAudio').value = reader.result;
-        };
-        reader.onerror = () => {
-            alert("Error preparing audio for upload");
-            e.preventDefault();
-        };
-        reader.readAsDataURL(window.trimmedAudioBlob);
-    });
+    //     // Convert blob to base64 for form submission
+    //     const reader = new FileReader();
+    //     reader.onload = () => {
+    //         document.getElementById('trimmedAudio').value = reader.result;
+    //     };
+    //     reader.onerror = () => {
+    //         alert("Error preparing audio for upload");
+    //         e.preventDefault();
+    //     };
+    //     reader.readAsDataURL(window.trimmedAudioBlob);
+    // });
 
     // Audio processing functions
     async function createAudioPreview(buffer, mimeType = 'audio/wav') {
