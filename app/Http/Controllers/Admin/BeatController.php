@@ -7,6 +7,8 @@ use App\Models\Beat;
 use App\Models\Genre;
 use App\Jobs\GenerateBeatPreview;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -58,7 +60,20 @@ class BeatController extends Controller
             $trimmedPath = $request->file('trimmed_audio_file')->store('beats/previews');
             // Handle file uploads
             $fileUrl = $request->file('audio_file')->store('beats/audio'); // Stored privately (default disk)
-            $coverImage = $request->file('cover_image')->store('beats/covers', 'public'); // Stored privately (default disk)
+            if ($request->hasFile('cover_image')) {
+                $manager = new ImageManager(new Driver());
+                $file = $request->file('cover_image');
+                $filename = 'beats/covers/' . Str::random(20) . '.webp';
+                
+                // v3 uses 'read()' instead of 'make()'
+                $image = $manager->read($file)
+                    ->cover(500, 500) // equivalent to fit() in v2
+                    ->toWebp(85);     // equivalent to encode('webp', 85)
+                
+                Storage::disk('public')->put($filename, (string) $image);
+                $coverImage = $filename;
+            }
+            // $coverImage = $request->file('cover_image')->store('beats/covers', 'public'); // Stored privately (default disk)
             // Extract dominant color from cover image
             $colorAccent = '#000000'; // Default color
             try {
@@ -218,7 +233,12 @@ class BeatController extends Controller
                 if ($beat->cover_image) {
                     Storage::disk('public')->delete($beat->cover_image);
                 }
-                $validated['cover_image'] = $request->file('cover_image')->store('beats/covers', 'public');
+                    $manager = new ImageManager(new Driver());
+                    $file = $request->file('cover_image');
+                    $filename = 'beats/covers/' . Str::random(20) . '.webp';
+                    $image = $manager->read($file)->cover(500, 500)->toWebp(85);   
+                    Storage::disk('public')->put($filename, (string) $image);
+                    $validated['cover_image'] = $filename;
                 
                 // Extract and update color accent from new cover image
                 try {
