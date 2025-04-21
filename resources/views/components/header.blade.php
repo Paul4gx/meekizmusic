@@ -94,13 +94,13 @@
 </style>
 </head>
 <body id="bg">
-    <div id="loading-area-4" class="loading-page-4">
+    {{-- <div id="loading-area-4" class="loading-page-4">
         <div class="loading-inner">
             <div class="loader"></div>
             <div class="loder-section left-section"></div>
             <div class="loder-section right-section"></div>
         </div>
-    </div>
+    </div> --}}
 
     <div class="page-wrapper">
         @include('components.navbar') 

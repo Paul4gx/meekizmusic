@@ -51,7 +51,7 @@ class BeatController extends Controller
                 'bpm' => 'required|numeric|min:0',
                 'duration' => 'required|string',
                 'audio_file' => 'required|file|mimes:mp3,wav|max:10240',
-                'cover_image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+                'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif,avif|max:2048',
                 'genre_ids' => 'required|array',
                 'genre_ids.*' => 'exists:genres,id',
                 'trimmed_audio_file' => 'required|file|mimes:wav'

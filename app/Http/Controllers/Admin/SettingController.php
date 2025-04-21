@@ -25,7 +25,6 @@ class SettingController extends Controller
             'contact_info.address' => 'nullable|string',
             'next_beat_release' => 'nullable|date',
             'quick_search' => 'nullable|array',
-            'quick_search.*' => 'string'
         ]);
 
         $settings = AdminSetting::first() ?? new AdminSetting();

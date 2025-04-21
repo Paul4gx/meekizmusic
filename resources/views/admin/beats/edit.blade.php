@@ -2,8 +2,59 @@
 @extends('layouts.admin')
 
 @section('title', 'Edit Beat')
+@push('styles')
+<style>
+    #beat-preview-progress-bar {
+        position: fixed;
+        z-index: 9999;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
+    .beat-bar-wrapper {
+        text-align: center;
+        width: 60%;
+        max-width: 400px;
+        color: #fff;
+    }
+
+    .beat-bar-animation {
+        width: 100%;
+        height: 8px;
+        background: #444;
+        border-radius: 5px;
+        overflow: hidden;
+        margin-bottom: 15px;
+        position: relative;
+    }
+
+    .beat-bar-animation::before {
+        content: '';
+        position: absolute;
+        left: -40%;
+        width: 40%;
+        height: 100%;
+        background: linear-gradient(to right, #ff4e50, #f9d423);
+        animation: beatLoadingMove 1.2s infinite;
+    }
+
+    @keyframes beatLoadingMove {
+        0% { left: -40%; }
+        50% { left: 100%; }
+        100% { left: 100%; }
+    }
+</style>
+@endpush
 @section('content')
+<div id="beat-preview-progress-bar" style="display: none;">
+    <div class="beat-bar-wrapper">
+        <div class="beat-bar-animation"></div>
+        <p>Processing preview, please wait...</p>
+    </div>
+</div>
 <section class="content-inner-2 pt-0">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -193,6 +244,7 @@
                 return;
             }
             if(window.trimmedAudioBlob !== "no-upload" && window.trimmedAudioBlob){
+                document.getElementById('beat-preview-progress-bar').style.display = 'flex';
             // Convert blob to File object and assign to hidden input
             const previewFile = new File([window.trimmedAudioBlob], 'preview.wav', {
                 type: 'audio/wav',

@@ -99,11 +99,6 @@
     <script src="{{asset('/assets/vendor/particles/particles-app.js')}}"></script>
     <script src="{{asset('/assets/js/dz.carousel.js')}}"></script><!-- OWL-CAROUSEL -->
     <script src="{{asset('/assets/js/custom.js')}}"></script><!-- CUSTOM JS -->
-    <script src="{{asset('/assets/vendor/rangeslider/rangeslider.js')}}"></script><!-- CUSTOM JS -->
-        <!-- Scripts -->
-        {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
-        {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script> --}}
         <script>
           let currentSound = null;
 let currentButton = null;

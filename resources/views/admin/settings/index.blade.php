@@ -16,7 +16,7 @@
                             <div class="mb-3">
                                 <label for="currency" class="form-label">Default Currency</label>
                                 <input type="text" class="form-control @error('currency') is-invalid @enderror" 
-                                       id="currency" name="currency" value="{{ old('currency', $settings?->currency ?? 'USD') }}" 
+                                       id="currency" name="currency" value="{{ old('currency', $settings?->currency ?? 'NGN') }}" 
                                         required>
                                 @error('currency')
                                     <div class="invalid-feedback">{{ $message }}</div>

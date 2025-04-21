@@ -1602,14 +1602,14 @@ jQuery(window).on('load',function () {
 		}
 	}
 
-	setTimeout(function(){		
-		jQuery('#loading-area-4').addClass('active');
-		jQuery('#loading-area-4').fadeOut(2500);
-	}, 2500);
-	setTimeout(function(){
-		jQuery('#loading-area').fadeOut();
-		jQuery('#loading-area-4').addClass('show');
-	}, 2000);
+	// setTimeout(function(){		
+	// 	jQuery('#loading-area-4').addClass('active');
+	// 	jQuery('#loading-area-4').fadeOut(2500);
+	// }, 2500);
+	// setTimeout(function(){
+	// 	jQuery('#loading-area').fadeOut();
+	// 	jQuery('#loading-area-4').addClass('show');
+	// }, 2000);
 	
 	
 	document.body.addEventListener( 'keydown', function() {
