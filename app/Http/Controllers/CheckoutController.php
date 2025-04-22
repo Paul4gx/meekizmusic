@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Beat;
+use App\Models\User;
 use App\Models\Purchase;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use App\Mail\BeatPurchased;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
@@ -96,7 +99,8 @@ class CheckoutController extends Controller
                 $userId = $data['data']['metadata']['user_id'];
             
                 $beat = Beat::findOrFail($beatId);
-            
+                $user = User::findOrFail($userId);
+
                 // Update the transaction record
                 $transaction = Transaction::where('reference', $request->reference)->first();
                 if ($transaction) {
@@ -124,7 +128,7 @@ class CheckoutController extends Controller
             
                         // Mark beat as sold
                         $beat->update(['is_sold' => true]);
-            
+                        Mail::to($user->email)->queue(new BeatPurchased($user));
                         return redirect()->route('purchased.index')
                         ->with('success', 'Payment successful! Purchase completed, you can now download the full beat!');
                     }
@@ -140,7 +144,7 @@ class CheckoutController extends Controller
             
                     // Mark beat as sold
                     $beat->update(['is_sold' => true]);
-            
+                    Mail::to($user->email)->queue(new BeatPurchased($user));
                     return redirect()->route('purchased.index')
                     ->with('success', 'Payment successful! Purchase completed, you can now download the full beat!');
                 }

@@ -92,7 +92,6 @@
     <script src="{{asset('/assets/vendor/imagesloaded/imagesloaded.js')}}"></script><!-- IMAGESLOADED -->
     <script src="{{asset('/assets/vendor/counter/waypoints-min.js')}}"></script><!-- WAYPOINTS JS -->
     <script src="{{asset('/assets/vendor/countdown/jquery.countdown.js')}}"></script><!-- COUNTDOWN FUCTIONS  -->
-    <script src="{{asset('/assets/vendor/perfect-scrollbar/js/perfect-scrollbar.min.js')}}"></script><!-- SCROLLBAR -->
     <script src="{{asset('/assets/vendor/counter/counterup.min.js')}}"></script><!-- COUNTERUP JS -->
     <script src="{{asset('/assets/vendor/swiper/swiper-bundle.min.js')}}"></script><!-- OWL-CAROUSEL -->
     <script src="{{asset('/assets/vendor/particles/particles.js')}}"></script>

@@ -15354,10 +15354,6 @@ section {
   src: url("../fonts/tomato_grotesk/TomatoGrotesk-Thin.otf") format("truetype");
   font-weight: 100;
 }
-/*=== Layout ===*/
-::-webkit-scrollbar {
-  display: none;
-}
 
 .logo-header {
   display: flex;

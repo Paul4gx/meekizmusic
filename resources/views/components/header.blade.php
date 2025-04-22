@@ -24,11 +24,7 @@
     <link href="{{asset('/assets/vendor/tempus-dominus/css/tempus-dominus.min.css')}}" rel="stylesheet">
     
     <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="{{asset('/assets/vendor/rangeslider/rangeslider.css')}}">
-    <link rel="stylesheet" href="{{asset('/assets/vendor/switcher/switcher.css')}}">
     <link rel="stylesheet" href="{{asset('/assets/css/style.css')}}">
-    <link href="{{asset('/assets/vendor/perfect-scrollbar/css/perfect-scrollbar.min.css')}}" rel="stylesheet">        
-
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">

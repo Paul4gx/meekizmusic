@@ -554,15 +554,6 @@ var handleCountDown = function(){
 	  	});
 	}
 
-	/* Perfect Scrollbar ============ */
-	var handlePerfectScrollbar = function() {
-		if(jQuery('.deznav-scroll').length > 0){
-			const qs = new PerfectScrollbar('.deznav-scroll');
-			qs.isRtl = false;
-		}
-	}
-
-	
 	/* WOW ANIMATION ============ */
 	var handleWowAnimation = function(){
 		if($('.wow').length > 0){
@@ -1483,7 +1474,6 @@ var setCurrentYear = function(){
 			handleBootstrapTouchSpin();
 			handleIconDropdown();
 			handleCurrentActive();
-			handlePerfectScrollbar();
 			handleComingSoonCounter();
 			handleShowPass();
 			handlePageOnScroll();

@@ -69,6 +69,9 @@
                     <li class="{{ request()->routeIs('marketplace.featured') ? 'active' : '' }}">
                         <a href="{{ route('marketplace.featured') }}"><span>Featured</span></a>
                     </li>
+                    <li class="d-block d-md-none {{ request()->routeIs('login') ? 'active' : '' }}">
+                        <a href="{{ route('login') }}"><span>Login</span></a>
+                    </li>
                     <li class="{{ request()->routeIs('contact') ? 'active' : '' }}">
                         <a href="{{ route('contact') }}"><span>Contact</span></a>
                     </li>
