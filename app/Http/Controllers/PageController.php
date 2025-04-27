@@ -19,13 +19,11 @@ class PageController extends Controller
         // ->get();
         // $beats = $this->attachWishlistStatus($beats);
         $heroBeat =Beat::inRandomOrder()->first();
-        // Get the latest 9 featured beats that are not sold, and eager load genres
             $latestBeat = Beat::with('genres') // Eager load the genres relationship
             ->latest() // Sort by the most recent
             ->take(8) // Get only the 9 most recent
             ->get();
 
-            // Get the latest 6 beats that are not sold, and eager load genres
             $featuredBeats = Beat::where('is_sold', false)
             ->where('is_featured', true)
             ->with('genres') // Eager load the genres relationship
