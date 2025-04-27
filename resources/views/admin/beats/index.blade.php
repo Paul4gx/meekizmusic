@@ -72,9 +72,8 @@
                         @endforelse
             </div>
 
-            <div class="mt-4">
-                {{ $beats->links() }}
-            </div>
+            {{ $beats->links('vendor.pagination.custom') }}
+
         </div>
     </section>
 @endsection 

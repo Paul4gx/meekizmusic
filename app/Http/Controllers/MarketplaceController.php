@@ -12,7 +12,7 @@ class MarketplaceController extends Controller
 {
     public function index(Request $request)
 {
-    $query = Beat::where('is_sold', false)->with('genres');
+    $query = Beat::with('genres');
     $adminSettings = AdminSetting::first();
 
     // Search
@@ -85,8 +85,7 @@ class MarketplaceController extends Controller
 }
     public function afrobeat(Request $request)
 {
-    $query = Beat::where('is_sold', false)->with('genres')
-                ->whereHas('genres', function($q) {
+    $query = Beat::with('genres')->whereHas('genres', function($q) {
                     $q->where('name', 'like', '%afrobeat%');
                 });
     // Paginate results

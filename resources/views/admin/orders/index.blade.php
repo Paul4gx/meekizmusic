@@ -62,9 +62,8 @@
                     </tbody>
                 </table>
             </div>
-            <div class="mt-4">
-                {{ $orders->links() }}
-            </div>
+            {{ $orders->links('vendor.pagination.custom') }}
+
         </div>
     </div>
 </div>

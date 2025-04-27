@@ -23,6 +23,8 @@
                 <span onclick="toggleWishlist(this,{{ $beat->id }})" style="cursor: pointer" class="{{ $beat->inWishlist ? 'heart heart-blast' : 'heart' ?? 'heart' }}"></span>
                 @if($beat->is_sold === false)
                 <a href="{{ route('beats.show', $beat) }}"><i class="flaticon flaticon-download-circular-button"></i> Buy Now</a>
+                @else
+                <a class="text-green"><i class="la la-check-circle" style="color:green"></i> Sold</a>
                 @endif
             </div>
             <div class="right-content">

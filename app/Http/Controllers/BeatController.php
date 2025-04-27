@@ -12,17 +12,17 @@ class BeatController extends Controller
 {
     public function getAllBeats()
     {
-        return response()->json(Beat::where('is_sold', false)->with('genres')->get());
+        return response()->json(Beat::with('genres')->get());
     }
 
     public function getLatestBeats()
     {
-        return response()->json(Beat::where('is_sold', false)->latest()->take(10)->get());
+        return response()->json(Beat::latest()->take(10)->get());
     }
 
     public function getMostPreviewedBeats()
     {
-        return response()->json(Beat::where('is_sold', false)->orderBy('views', 'desc')->take(10)->get());
+        return response()->json(Beat::orderBy('views', 'desc')->take(10)->get());
     }
 
     public function searchBeats(Request $request)
@@ -43,14 +43,12 @@ class BeatController extends Controller
 
     public function getHeroBeat()
     {
-        return response()->json(Beat::where('is_sold', false)->inRandomOrder()->first());
+        return response()->json(Beat::inRandomOrder()->first());
     }
 
     public function show(Beat $beat)
 {
-    $relatedBeats = Beat::where('id', '!=', $beat->id)
-        ->where('is_sold', false)
-        ->whereHas('genres', function ($query) use ($beat) {
+    $relatedBeats = Beat::where('id', '!=', $beat->id)->whereHas('genres', function ($query) use ($beat) {
             $query->whereIn('genres.id', $beat->genres->pluck('id'));
         })
         ->inRandomOrder()

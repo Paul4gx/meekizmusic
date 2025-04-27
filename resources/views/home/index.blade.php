@@ -18,7 +18,7 @@
                         <p class="text text-white"  style="margin-bottom:50px;">Exclusive sounds crafted by Meekizmusic producers, ready to ignite your creativity. <br>Hit play and let the rhythm take over.</p>
                         @if(!empty($heroBeat) && $heroBeat->preview_url)
                                 <div class="dz-player style-2 m-b30" data-src="{{ htmlspecialchars(url($heroBeat->preview_url)) }}">
-                                    <h5 class="title">{{ $heroBeat->title }}</h5>
+                                    <h5 class="title"><a href="{{ route('beats.show', $heroBeat) }}" style="color:wheat">{{ $heroBeat->title }}</a></h5>
                                     <button class="dz-play-btn">
                                         <span class="dz-play-btnIco"><i class="fa-solid fa-play"></i></span>
                                     </button>
@@ -168,6 +168,9 @@
                 @endforelse
 
             </div>
+            <div class="m-b30 text-center text-xl-center">
+                <a href="/marketplace" class="btn btn-gradient wow text-white flipInX" data-wow-delay="0.6s">VIEW MORE BEATS</a>
+            </div>
         </div>	
     </section>
     <!-- about section -->	
@@ -197,8 +200,39 @@
         </div>
     </section>
     <!-- about section -->	
+        <!-- about section -->	
+        <section class="content-inner-2 py-3">
+            <div class="container">
+                <div class="row align-items-center">
+
+                    <div class="col-lg-8 col-md-12 col-sm-12 p-lg-l30" data-wow-delay="0.2s">
+                        <div class="about-box style-3 wow fadeInUp">
+                            <h5 class="title" style="font-size:2rem">Exclusive Beats, Licensed to You!</h5>
+                            <p class="text">Every beat on site is unique and crafted with passion. When you purchase a beat, you are not just buying a track — you are securing exclusive rights to use it.</p>
+                            <em class="my-0">We guarantee:</em>
+                                <ul>
+                                    <li><i class="la la-check-circle" style="color:green;padding:5px 5px;font-weight:600;font-size:1rem;"></i> Each beat is one-of-a-kind and available immediately after purchase.</li>
+                                    <li><i class="la la-check-circle" style="color:green;padding:5px 5px;font-weight:600;font-size:1rem;"></i> You receive a License Certificate verifying your ownership rights.</li>
+                                    <li><i class="la la-check-circle" style="color:green;padding:5px 5px;font-weight:600;font-size:1rem;"></i> Your license grants you full rights for recording, distribution, and monetization.</li>
+                                </ul>
+                            {{-- <a href="/marketplace" class="btn btn-dark btn-hover-1 rounded-0 m-b20"><span>Learn More</span></a> --}}
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="row">
+                            <div class="col-12 p-lr10 m-b30">
+                                <div class="dz-media wow fadeInUp" data-wow-delay="0.2s">
+                                    <img src="/assets/images/music.webp" alt="/">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- about section -->	
     <!--countdown section-->
-    <section class="section-wrapper-5 content-inner overflow-hidden bg-parallax" style="background-image:url('assets/images/background/pic1.png'); background-attachment: fixed;">
+    <section class="section-wrapper-5 content-inner overflow-hidden bg-parallax" style="background-image:url('assets/images/background/pic1.webp'); background-attachment: fixed;">
         <div class="container">
             <div class="section-head  text-center">
                 <h3 class="sub-title text-white wow flipInX" data-wow-delay="0.2s">Next Vibe Drops In</h3>

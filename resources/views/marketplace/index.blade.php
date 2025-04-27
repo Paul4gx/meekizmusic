@@ -106,14 +106,7 @@
                 </div>
             @endforelse
             </div>
-
-            <div class="row">
-                <div class="col-12">
-                    <div class="d-flex justify-content-center mt-4">
-                        {{ $beats->links() }}
-                    </div>
-                </div>
-            </div>
+            {{ $beats->links('vendor.pagination.custom') }}
         </div>
     </div>
             </div>

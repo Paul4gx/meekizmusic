@@ -19,11 +19,8 @@
             @endforelse
         </div>
 
-        @if($wishlistItems->hasPages())
-            <div class="mt-4">
-                {{ $wishlistItems->links() }}
-            </div>
-        @endif
+        {{ $beats->links('vendor.pagination.custom') }}
+
     </div>
 </section>
 

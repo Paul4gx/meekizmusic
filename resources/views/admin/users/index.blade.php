@@ -75,9 +75,8 @@ use App\Models\User;
                     </tbody>
                 </table>
             </div>
-            <div class="mt-4">
-                {{ $users->links() }}
-            </div>
+            {{ $users->links('vendor.pagination.custom') }}
+
         </div>
     </div>
 </div>

@@ -2,6 +2,13 @@
 @section('title', $beat->title)
 @section('content')
 <div class="page-content bg-white">
+	<style>
+		.modal-body {
+			max-height: 70vh; /* 70% of the viewport height */
+			overflow-y: auto; /* vertical scroll if needed */
+			padding: 20px;
+			}
+	</style>
     <x-breadcrumb title="{{ $beat->title }}" content="Beat" />
 		<section class="content-inner-3">
 			<div class="container">
@@ -29,13 +36,14 @@
 						<div class="dz-product-detail style-2">
 							<div class="dz-content">
 								<div class="dz-content-footer">
-									<div class="dz-content-start">
+									<div class="dz-content-start w-100">
 										<span class="badge bg-primary mb-2 rounded-0">SALE 20% Off</span>
-										<h4 class="title mb-1">{{ $beat->title }}</h4>
-										<div class="dz-player  style-2" data-src="{{ htmlspecialchars(url($beat->preview_url)) }}">
+										<h4 class="title mb-1">{{ $beat->title }}  <img src="{{asset('/assets/images/license.png')}}" style="margin-left:5px;"></h4>
+										<div class="dz-player style-2 p-2" style="gap:0;" data-src="{{ htmlspecialchars(url($beat->preview_url)) }}">
                                             <button class="dz-play-btn"><span class="dz-play-btnIco"><i class="fa-solid fa-play"></i></span></button>
                                             <button class="dz-play-btn"><span class="dz-play-btnIco"><svg class="svg-inline--fa fa-pause" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pause" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M48 64C21.5 64 0 85.5 0 112V400c0 26.5 21.5 48 48 48H80c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H48zm192 0c-26.5 0-48 21.5-48 48V400c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H240z"></path></svg></span></button>
-                                            <div class="dzPlayNum">
+                                            
+											<div class="dzPlayNum">
                                                 <span class="dzPlayCurDuration">0:00</span>
                                             </div>
                                             <div class="dz-player-range">
@@ -53,6 +61,8 @@
                                                 </div>
                                             </div>
                                         </div>
+
+										  
                                         {{-- <div class="review-num"> --}}
 											{{-- <ul class="dz-rating me-2">
 												<li>
@@ -89,7 +99,7 @@
 								</div>
 								<p class="para-text">
 									{{ $beat->description }}</p>
-								<div class="product-num align-items-center">
+								<div class="product-num align-items-center" style="margin-bottom: 0px">
 									<div class="d-block">
 										<div>
 											<h5 class="sub-title">Price:</h5>
@@ -103,21 +113,26 @@
 										</div>
 									</div>
 								</div>
+								<div style="text-align: left; margin-top: 10px;">
+									<span style="display: inline-block; padding: 10px 10px; color: #28a745; font-weight: bold;">
+									  🔒 Certified Exclusive Beats - Yours Only
+									</span>
+								</div>
+								<p><strong>Rights:</strong> Full commercial usage granted upon purchase. Files include full audio files and beat licensing document.</p>
+
 								<div class="btn-group cart-btn">
-				@if($beat->is_sold=== false)
+				@if($beat->is_sold === false)
                 @auth
-                    <form action="{{ route('checkout.initialize') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="beat_id" value="{{ $beat->id }}">
-                        <button type="submit" class="btn btn-secondary btn-md rounded-0 text-uppercase">
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#purchaseAgreementModal" class="btn btn-secondary btn-md rounded-0 text-uppercase">
                             Buy Now
                         </button>
-                    </form>
                 @else
                     <a href="{{ route('login') }}" class="btn btn-secondary btn-md rounded-0 text-uppercase">
                         Login to Purchase
                     </a>
                 @endauth
+				@else 
+				<button class="btn btn-md rounded-0 text-uppercase" style="background-color:green;color:white;" disabled><i class="la la-check-circle" style="color:white;padding:5px;"></i> Sold</button>
 				@endif
 									<button onclick="toggleWishlist(this,{{ $beat->id }}, true)" class="btn btn-gray btn-md btn-icon rounded-0 {{ $isInWishlist ? 'active' : '' }}">
 										<span style="cursor: pointer" id="beat-like-icon" class="{{ $isInWishlist ? 'heart heart-blast' : 'heart' ?? 'heart' }}"></span>
@@ -188,4 +203,58 @@
                     </div>
                 </section>
                 @endif
+  
+  <!-- Modal -->
+  <div class="modal fade" id="purchaseAgreementModal" tabindex="-1" aria-labelledby="purchaseAgreementModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-xl"> <!-- Use XL and centered -->
+		<div class="modal-content" style="max-width: 100%; margin: auto;">
+		
+		<div class="modal-header">
+		  <h5 class="modal-title" id="purchaseAgreementModalLabel">Purchase Agreement</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		
+		<div class="modal-body">
+			<div class="blog-single dz-card mb-0">
+				<div class="dz-info">
+					<div class="dz-post-text">
+						<div class="author-box p-1">
+							<div class="author-profile-info">
+								<div class="author-profile-content">
+									<h6>By proceeding with this purchase, you hereby acknowledge and agree to the following terms:</h6>
+								</div>
+							</div>
+						</div>
+						<ul>
+							<li>You are purchasing an exclusive license to use the beat for commercial and/or non-commercial purposes.</li>
+							<li>You are prohibited from reselling, redistributing, transferring, or sublicensing the original beat file as-is.</li>
+							<li>You agree to credit the Producer appropriately in all instances where the beat is used or performed publicly.</li>
+							<li>All sales are final. No refunds will be issued after purchase completion, as the product is a digital good delivered instantly.</li>
+							<li>The Producer retains authorship rights to the beat composition.</li>
+							<li>You agree not to infringe upon the Producer’s copyright by claiming authorship of the beat itself.</li>
+							<li>Violations of these terms may result in legal action and forfeiture of usage rights.</li>
+						  </ul>
+						  
+						  <p class="mb-0">By clicking "Proceed to Checkout," you legally bind yourself to the terms stated above and acknowledge full understanding and acceptance of this License Agreement.</p>
+						  
+					</div>
+			
+				</div>
+			</div>
+		</div>
+  
+		<div class="modal-footer">
+			<form action="{{ route('checkout.initialize') }}" method="POST">
+				@csrf
+				<input type="hidden" name="beat_id" value="{{ $beat->id }}">
+				<button type="submit" class="btn btn-secondary btn-md rounded-0 text-uppercase">
+					Proceed to Checkout
+				</button>
+			</form>
+		</div>
+  
+	  </div>
+	</div>
+  </div>
+  
 @endsection 

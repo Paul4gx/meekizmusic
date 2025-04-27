@@ -26,7 +26,8 @@
                     <div class="row dz-info justify-content-between">
                         <div class="col-lg-2">
                             <span class="small-title">Date:</span>
-                            <h5 class="dz-title"><a>{{ $order->created_at->format('M d, Y') }}</a></h5>
+                            <h5 class="dz-title m-0"><a>{{ $order->created_at->format('M d, Y') }}</a></h5>
+                            <a class="btn btn-link p-0 m-0 mb-2 d-flex justify-content-center" style="float: left;font-size:0.7rem;color:blue;" href="{{ route('license.download', $order->beat) }}"> <i class="la la-file" style="margin-left:0;font-size:0.8rem;"></i> Download License</a>
                         </div>
                         <div class="col-lg-3">
                             <span class="small-title">Beat title:</span>
@@ -80,10 +81,7 @@
             }
         </script>
         </div>
-        @if($orders->hasPages())
-            <div class="mt-4">
-                {{ $orders->links() }}
-            </div>
-        @endif
+        {{ $orders->links('vendor.pagination.custom') }}
+
         </section>
 @endsection 

@@ -10,6 +10,7 @@ use App\Http\Controllers\PurchasedController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\BeatController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\LicenseController;
 
 // Public routes
 Route::get('/', [PageController::class, 'home'])->name('home');
@@ -48,7 +49,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/purchased', [PurchasedController::class, 'index'])->name('purchased.index');
 // The download route in your web.php routes file should look like this:
 Route::get('/purchased/{order}/download', [PurchasedController::class, 'download'])->name('purchased.download');
-    
+Route::get('/license/{beat}', [LicenseController::class, 'download'])->name('license.download');
+
     // Beats
     Route::get('/beats/{beat}', [BeatController::class, 'show'])->name('beats.show');
     // Route::get('/beats/full/{filename}', [BeatController::class, 'full']);

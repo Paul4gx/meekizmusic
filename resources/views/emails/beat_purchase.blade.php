@@ -71,12 +71,14 @@
         <ol>
             <li>Login to your dashboard</li>
             <li>Click on the <strong>Purchases</strong> tab</li>
-            <li>Select your recent transaction</li>
-            <li>Click <strong>Download</strong> to get your files</li>
+            <li>See your recent transaction</li>
+            <li>Click <strong>Download</strong> to get your full audio files</li>
+            <li>Along with your beat license.</li>
         </ol>
 
         <a class="btn" href="{{ route('login') }}">Login to Dashboard</a>
 
+        <p>Ensure to download your beat license to have a copy, as well as your audio file.</p>
         <p>If you need help or experience any issues, just reply to this email. We're here to help you rock your next track. 🎶</p>
 
         <p>— The {{ config('app.name') }} Team</p>
