@@ -121,23 +121,33 @@
                 </ul>
             </form>
 
+<style>
+    
+</style>
 
 
-
-            <div class="row">
-                <div class="col-xl-12">
-                    <h3 class="mb-3">Featured Beats</h3>
-                    <div class="swiper category-swiper2">
-                        <div class="swiper-wrapper">
-                            @foreach($featuredBeats as $beat)
-                            <div class="swiper-slide col-6 col-lg-3 col-md-3">
-                                    <x-beatcolumn :beat="$beat" colClass="col-12" />
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
+            
+<div class="row">
+    <div class="col-xl-12">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3>Featured Beats</h3>
+            <div class="swiper-nav-btns">
+                <div class="tranding-button-prev swiper-button-prev" style="color:black;background:rgba(245, 245, 245, 0.804);padding:25px 15px;"></div>
+                <div class="tranding-button-next swiper-button-next" style="color:black;background:rgba(245, 245, 245, 0.804);padding:25px 15px;"></div>
             </div>
+        </div>
+        <div class="swiper category-swiper2">
+            <div class="swiper-wrapper">
+                @foreach($featuredBeats as $beat)
+                <div class="swiper-slide col-6 col-lg-3 col-md-3">
+                    <x-beatcolumn :beat="$beat" colClass="col-12" />
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 

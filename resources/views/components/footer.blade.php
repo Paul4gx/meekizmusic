@@ -80,7 +80,7 @@
             </div>
         </footer>
     </div>
-
+    <script src="//code.tidio.co/kpfjg4rtw61qibn9tkxlgacisgkdb8ja.js" async></script>
     <!-- JAVASCRIPT FILES ========================================= -->
     <script src="{{asset('/assets/js/jquery.min.js')}}"></script><!-- JQUERY.MIN JS -->
     <script src="{{asset('/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script><!-- BOOTSTRAP.MIN JS -->

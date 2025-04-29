@@ -38,7 +38,7 @@
 								<div class="dz-content-footer">
 									<div class="dz-content-start w-100">
 										<span class="badge bg-primary mb-2 rounded-0">SALE 20% Off</span>
-										<h4 class="title mb-1">{{ $beat->title }}  <img src="{{asset('/assets/images/license.png')}}" style="margin-left:5px;"></h4>
+										<h4 class="title mb-1">{{ $beat->title }} </h4>
 										<div class="dz-player style-2 p-2" style="gap:0;" data-src="{{ htmlspecialchars(url($beat->preview_url)) }}">
                                             <button class="dz-play-btn"><span class="dz-play-btnIco"><i class="fa-solid fa-play"></i></span></button>
                                             <button class="dz-play-btn"><span class="dz-play-btnIco"><svg class="svg-inline--fa fa-pause" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pause" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M48 64C21.5 64 0 85.5 0 112V400c0 26.5 21.5 48 48 48H80c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H48zm192 0c-26.5 0-48 21.5-48 48V400c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H240z"></path></svg></span></button>
@@ -123,9 +123,16 @@
 								<div class="btn-group cart-btn">
 				@if($beat->is_sold === false)
                 @auth
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#purchaseAgreementModal" class="btn btn-secondary btn-md rounded-0 text-uppercase">
+				<form action="{{ route('checkout.initialize') }}" method="POST">
+					@csrf
+					<input type="hidden" name="beat_id" value="{{ $beat->id }}">
+					<button type="submit" class="btn btn-secondary btn-md rounded-0 text-uppercase">
+						Buy Now
+					</button>
+				</form>
+                        {{-- <button type="button" data-bs-toggle="modal" data-bs-target="#purchaseAgreementModal" class="btn btn-secondary btn-md rounded-0 text-uppercase">
                             Buy Now
-                        </button>
+                        </button> --}}
                 @else
                     <a href="{{ route('login') }}" class="btn btn-secondary btn-md rounded-0 text-uppercase">
                         Login to Purchase
