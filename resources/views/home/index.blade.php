@@ -131,9 +131,23 @@
     <div class="col-xl-12">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h3>Featured Beats</h3>
-            <div class="swiper-nav-btns">
-                <div class="tranding-button-prev swiper-button-prev" style="color:black;background:rgba(245, 245, 245, 0.804);padding:25px 15px;"></div>
-                <div class="tranding-button-next swiper-button-next" style="color:black;background:rgba(245, 245, 245, 0.804);padding:25px 15px;"></div>
+                <style>
+                    .swiper-button-prev::after,
+                    .swiper-button-next::after {
+                        display: none;
+                    }
+                    .swiper-button-prev i {
+                        transform: rotate(180deg); /* Flip play icon to left */
+                    }
+                    </style>
+                    
+                    <div class="swiper-nav-btns">
+                        <div class="tranding-button-prev swiper-button-prev" style="background:rgba(245, 245, 245, 0.804);width:30px;height:30px;border-radius:50%">
+                            <i class="fas fa-play" style="color:black;"></i>
+                        </div>
+                        <div class="tranding-button-next swiper-button-next" style="background:rgba(245, 245, 245, 0.804);width:30px;height:30px;border-radius:50%">
+                            <i class="fas fa-play" style="color:black;"></i>
+                        </div>
             </div>
         </div>
         <div class="swiper category-swiper2">
