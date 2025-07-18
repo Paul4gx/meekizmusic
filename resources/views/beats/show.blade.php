@@ -138,7 +138,7 @@
                         Login to Purchase
                     </a>
                 @endauth --}}
-				<a href="https://wa.me/2348012345678?text={{ urlencode('Hi, I am interested in purchasing this beat: ' . $beat->title) }}" target="_blank" class="btn btn-success btn-md rounded-0 text-uppercase">
+				<a href="https://wa.me/2347041039145?text={{ urlencode('Hi, I am interested in purchasing this beat: ' . $beat->title) }}" target="_blank" class="btn btn-md rounded-0 text-uppercase"  style="background-color:green;color:white;"><i class="la la-whatsapp-square" style="color:white;padding:5px;"></i>
                         Purchase Now
                 </a>
 				{{-- @else 
