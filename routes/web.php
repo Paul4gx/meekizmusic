@@ -18,6 +18,7 @@ Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::post('/contact', [PageController::class, 'submitContact'])->name('contact.submit');
 Route::get('/beats/previews/{filename}', [BeatController::class, 'preview']);
+Route::get('/beats/{beat}', [BeatController::class, 'show'])->name('beats.show');
 
 // Marketplace routes
 Route::prefix('marketplace')->name('marketplace.')->group(function () {
@@ -52,7 +53,7 @@ Route::get('/purchased/{order}/download', [PurchasedController::class, 'download
 Route::get('/license/{beat}', [LicenseController::class, 'download'])->name('license.download');
 
     // Beats
-    Route::get('/beats/{beat}', [BeatController::class, 'show'])->name('beats.show');
+    // Route::get('/beats/{beat}', [BeatController::class, 'show'])->name('beats.show');
     // Route::get('/beats/full/{filename}', [BeatController::class, 'full']);
     
     
