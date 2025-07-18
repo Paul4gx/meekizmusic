@@ -7,9 +7,9 @@
         </div>
         <div class="dz-info">
             <h6 class="title"><a href="{{ route('beats.show', $beat) }}">{{ $beat->title }}</a></h6>
-            <div class="d-flex align-items-center">
+            {{-- <div class="d-flex align-items-center">
                 <span>{{currency_symbol()}}{{ number_format($beat->price, 2) }}</span>
-            </div>
+            </div> --}}
             <div class="dz-meta">
                 <ul>
                     @foreach($beat->genres as $genre)

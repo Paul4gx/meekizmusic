@@ -101,7 +101,7 @@
 									{{ $beat->description }}</p>
 								<div class="product-num align-items-center" style="margin-bottom: 0px">
 									<div class="d-block">
-										<div>
+										{{-- <div>
 											<h5 class="sub-title">Price:</h5>
 											<div class="me-3">
 												<span class="price-num">
@@ -110,7 +110,7 @@
 												</span>
 												
 											</div>	
-										</div>
+										</div> --}}
 									</div>
 								</div>
 								<div style="text-align: left; margin-top: 10px;">
@@ -121,7 +121,7 @@
 								<p><strong>Rights:</strong> Full commercial usage granted upon purchase. Files include full audio files and beat licensing document.</p>
 
 								<div class="btn-group cart-btn">
-				@if($beat->is_sold === false)
+				{{-- @if($beat->is_sold === false)
                 @auth
 				<form action="{{ route('checkout.initialize') }}" method="POST">
 					@csrf
@@ -129,22 +129,25 @@
 					<button type="submit" class="btn btn-secondary btn-md rounded-0 text-uppercase">
 						Buy Now
 					</button>
-				</form>
+				</form> --}}
                         {{-- <button type="button" data-bs-toggle="modal" data-bs-target="#purchaseAgreementModal" class="btn btn-secondary btn-md rounded-0 text-uppercase">
                             Buy Now
                         </button> --}}
-                @else
+                {{-- @else
                     <a href="{{ route('login') }}" class="btn btn-secondary btn-md rounded-0 text-uppercase">
                         Login to Purchase
                     </a>
-                @endauth
-				@else 
+                @endauth --}}
+				<a href="https://wa.me/2348012345678?text={{ urlencode('Hi, I am interested in purchasing this beat: ' . $beat->title) }}" target="_blank" class="btn btn-success btn-md rounded-0 text-uppercase">
+                        Purchase Now
+                </a>
+				{{-- @else 
 				<button class="btn btn-md rounded-0 text-uppercase" style="background-color:green;color:white;" disabled><i class="la la-check-circle" style="color:white;padding:5px;"></i> Sold</button>
-				@endif
-									<button onclick="toggleWishlist(this,{{ $beat->id }}, true)" class="btn btn-gray btn-md btn-icon rounded-0 {{ $isInWishlist ? 'active' : '' }}">
+				@endif --}}
+									{{-- <button onclick="toggleWishlist(this,{{ $beat->id }}, true)" class="btn btn-gray btn-md btn-icon rounded-0 {{ $isInWishlist ? 'active' : '' }}">
 										<span style="cursor: pointer" id="beat-like-icon" class="{{ $isInWishlist ? 'heart heart-blast' : 'heart' ?? 'heart' }}"></span>
 										<span id="theliketext">{{ $isInWishlist ? 'Remove from Wishlist' : 'Add to Wishlist' }}</span>
-									</button>
+									</button> --}}
 								</div>
 								<div class="dz-info">
 									<ul>
